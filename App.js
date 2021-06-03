@@ -1,21 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { StyleSheet, StatusBar } from "react-native";
+import ListScreen from "./screens/ListScreen";
+import RecordScreen from "./screens/RecordScreen";
+import globalStyles from "./style/styles";
 
-export default function App() {
+const App = () => {
+  const Tab = createBottomTabNavigator();
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <StatusBar barStyle={"light-content"} />
+      <Tab.Navigator
+        tabBarOptions={{
+          tabStyle: {
+            justifyContent: "center",
+          },
+          activeTintColor: globalStyles.activeNavTextColor,
+          inactiveBackgroundColor: globalStyles.inActiveNavBackgroundColor,
+          activeBackgroundColor: globalStyles.activeNavBackgroundColor,
+        }}
+      >
+        <Tab.Screen name="Record Voice" component={RecordScreen} screen />
+        <Tab.Screen name="Play Recordings" component={ListScreen} />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+};
+export default App;
